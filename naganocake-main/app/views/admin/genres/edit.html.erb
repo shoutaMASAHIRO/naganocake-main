@@ -1,0 +1,31 @@
+<% if @genre.errors.any? %> 
+  <div class="alert alert-danger">
+    <h4 class="alert-heading"><%= @genre.errors.count %> errors occurred</h4>
+    <ul>
+      <% @genre.errors.full_messages.each do |message| %> 
+        <li><%= message %></li>　
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1 class="mb-4">ジャンルの編集</h1>
+
+<% if flash[:success] %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<%= form_with model: @genre, url: admin_genre_path(@genre.id), class: "form" do |f| %>
+
+  <div class="form-group" style="max-width: 400px;">
+    <label for="genre_name">ジャンル名</label>
+    <%= f.text_field :name, class: "form-control", id: "genre_name", autofocus: true, placeholder: "ジャンル名" %>
+  </div>
+
+  <br>
+
+  <%= f.submit '編集', class: "btn btn-primary" %>
+
+<% end %>

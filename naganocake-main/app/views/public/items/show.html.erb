@@ -1,0 +1,24 @@
+<h3 class="text-center my-5">商品詳細</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="text-center">
+        <%= image_tag @item.get_item_image(400,400), class: "img-fluid rounded shadow-sm" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h2 class="mb-4 font-weight-bold"><%= @item.name %></h2>
+      <p class="lead"><%= @item.introduction %></p>
+      <h4 class="text-primary">税込価格: <%= @item.with_tax_price %>円</h4>
+
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post, local: true do |f| %>
+        <div class="form-group mt-4">
+          <%= f.hidden_field :item_id, value: @item.id %>
+          <%= f.label :amount, "個数", class: "form-label" %>
+          <%= f.select :amount, 1..10, {}, class: "form-control w-50" %>
+        </div>
+        <%= f.submit 'カートに追加', class: "btn btn-lg btn-primary mt-3 shadow-sm" %>
+      <% end %>
+    </div>
+  </div>
+</div>

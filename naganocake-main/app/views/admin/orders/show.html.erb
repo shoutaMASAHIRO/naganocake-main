@@ -1,0 +1,62 @@
+<!-- admin/orders/show.html.erb -->
+<h1 class="my-4 text-center">管理者 #会員の注文詳細</h1>
+
+<h3 class="text-success text-center"><%= flash[:notice] %></h3>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mb-4">
+        <!-- 特定の会員の配送先情報を表示 -->
+        <p><strong>購入者：</strong> 
+          <%= link_to "#{@order.customer.last_name} #{@order.customer.first_name}", admin_customer_path(@order.customer) %>
+        </p>
+        <p><strong>配送先：</strong> 
+          〒<%= "#{@order.postal_code} #{@order.address} #{@order.name}" %>
+        </p>
+        <p><strong>支払方法：</strong> <%= @order.method_i18n %></p>
+      </div>
+
+      <!-- 注文ステータス更新フォーム -->
+      <div class="mb-4">
+        <h4>注文ステータス更新</h4>
+        <%= form_with model: @order, url: admin_order_path(@order.id), method: :patch do |f| %>
+          <div class="mb-3">
+            <%= f.label :status, "注文ステータス", class: "form-label" %>
+            <%= f.select :status, Order.statuses.keys.map { |k| [I18n.t("order.status.#{k}"), k] }, { prompt: "ステータスを選択" }, class: "form-select" %>
+          </div>
+          <%= f.submit '更新', class: "btn btn-primary w-100" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <h3>注文商品</h3>
+      <% @order.order_details.each do |order_detail| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <p><strong>商品名：</strong> <%= order_detail.item.name %></p>
+            <p><strong>値段(購入時)：</strong> <%= number_to_currency(order_detail.price, unit: "¥", precision: 0) %></p>
+            <p><strong>個数：</strong> <%= order_detail.quantity %></p>
+
+            <h5>製作ステータス更新</h5>
+            <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch do |f| %>
+              <div class="mb-3">
+                <%= f.label :status, "製作ステータス", class: "form-label" %>
+                <%= f.select :status, OrderDetail.statuses_i18n.invert, { prompt: "ステータスを選択" }, class: "form-select" %>
+              </div>
+              <%= f.submit '更新', class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <hr />
+      <div>
+      <h5>商品合計：<%= number_to_currency(@total_amount, unit: "¥", precision: 0) %></h5>
+      <h5>送料：<%= number_to_currency(@order.postage, unit: "¥", precision: 0) %></h5>
+      <h5>請求金額：<%= number_to_currency(@order.amount, unit: "¥", precision: 0) %></h5>   
+      </div>
+    </div>
+  </div>
+</div>

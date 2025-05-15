@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <%= render 'public/shared/error_messages', resource: @order %>
+
+  <h1 class="text-center">注文情報入力</h1>
+  <%= form_with model: @order, url: check_orders_path, method: :post do |f| %>
+    
+    <h3>支払方法</h3>
+    <div class="mb-3">
+      <%= f.radio_button :method, Order.methods.key(0), id: "method_credit_card" %>
+      <%= f.label :method_credit_card, Order.methods_i18n[:credit_card], for: "method_credit_card" %>
+    </div>
+    <div class="mb-3">
+      <%= f.radio_button :method, Order.methods.key(1), id: "method_transfer" %>
+      <%= f.label :method_transfer, Order.methods_i18n[:transfer], for: "method_transfer" %>
+    </div>
+    
+    <h3>お届け先</h3>
+    <div class="mb-3">
+      <%= f.radio_button :select_address, 0, id: "select_own_address" %>
+      <%= f.label "select_own_address", "ご自身の住所", for: "select_own_address" %>
+      <%= '〒' + current_customer.postal_code + " " + current_customer.address + " " + current_customer.last_name + current_customer.first_name %>
+      <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
+      <%= f.hidden_field :address, value: current_customer.address %>
+      <%= f.hidden_field :name, value: current_customer.last_name + current_customer.first_name %>
+    </div>
+    
+    <div class="mb-3">
+      <%= f.radio_button :select_address, 1, id: "select_registered_address" %>
+      <%= f.label "select_registered_address", "登録済住所から選択", for: "select_registered_address" %>
+      <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display), {}, { class: "form-select" } %>
+    </div>
+    
+    <div class="mb-3">
+      <%= f.radio_button :select_address, 2, id: "select_new_address" %>
+      <%= f.label "select_new_address", "新しいお届け先", for: "select_new_address" %>
+      <%= f.text_field :postal_code, placeholder: '0000000', class: "form-control" %>
+      <%= f.text_field :address, placeholder: '東京都渋谷区代々木神園町0-0', class: "form-control" %>
+      <%= f.text_field :name, placeholder: '令和道子', class: "form-control" %>
+    </div>
+    
+    <div class="text-center">
+      <%= f.submit '確認に進む', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

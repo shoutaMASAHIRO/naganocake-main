@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center mt-4">
+  <div class="card p-3 d-flex justify-content-end" style="max-width: 400px; width: 100%;">
+    <% if controller_name != 'sessions' %>
+      <%= link_to "Log in", new_session_path(resource_name), class: "btn btn-link mb-2" %>
+    <% end %>
+
+    <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-link" %>
+    <% end %>
+  </div>
+</div>

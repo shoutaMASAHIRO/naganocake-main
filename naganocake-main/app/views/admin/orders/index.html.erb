@@ -1,0 +1,40 @@
+<h1 class="my-4 text-center">管理者 #注文一覧</h1>
+
+<div class="container">
+  <% @orders.each do |order| %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <strong>注文日時：</strong>
+        <%= link_to order.created_at.in_time_zone("Asia/Tokyo").strftime("%Y年%m月%d日 %H:%M:%S %Z"), admin_order_path(order.id), class: "text-decoration-none" %>
+        <!-- 注文詳細ページへのリンク -->
+        <%= link_to '注文詳細へ', admin_order_path(order.id), class: 'btn btn-info btn-sm ms-2' %>
+      </div>
+      <div class="card-body">
+        <p><strong>注文者名：</strong><%= order.customer.last_name + " " + order.customer.first_name %></p>
+        <p><strong>注文個数：</strong><%= OrderDetail.total_quantity_for_order(order) %></p>
+        <p>
+          <strong>注文ステータス：</strong>
+          <% case order.status %>
+            <% when "waiting_for_payment" %>
+              <span class="badge bg-warning">
+            <% when "payment_confirmed" %>
+              <span class="badge bg-success">
+            <% when "in_production" %>
+              <span class="badge bg-info">
+            <% when "preparing_to_ship" %>
+              <span class="badge bg-primary">
+            <% when "shipped" %>
+              <span class="badge bg-secondary">
+          <% end %>
+                <%= order.status_i18n %>
+              </span>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- ページネーションのリンクを追加 -->
+<div class="pagination-container">
+  <%= paginate @orders %>
+</div>

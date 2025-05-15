@@ -1,0 +1,54 @@
+会員側
+| 機能カテゴリ | URLパス                           | アクション名                     | コントローラ                 |
+| ------ | -------------------------------- | -------------------------- | ---------------------- |
+| 認証     | `/customers/sign_in`             | `new`, `create`, `destroy` | `public/sessions`      |
+| 会員登録   | `/customers/sign_up`             | `new`, `create`            | `public/registrations` |
+| トップページ | `/`                              | `top`                      | `public/homes`         |
+| サイト紹介  | `/about`                         | `about`                    | `public/homes`         |
+| 商品一覧   | `/items`                         | `index`                    | `public/items`         |
+| 商品詳細   | `/items/:id`                     | `show`                     | `public/items`         |
+| マイページ  | `/customers`                     | `show`                     | `public/customers`     |
+| 会員編集   | `/customers/edit`                | `edit`                     | `public/customers`     |
+| 会員更新   | `PATCH /customers`               | `update`                   | `public/customers`     |
+| 退会確認   | `/customers/unsubscribe`         | `unsubscribe`              | `public/customers`     |
+| 退会処理   | `PATCH /customers/withdraw`      | `withdraw`                 | `public/customers`     |
+| カート一覧  | `/cart_items`                    | `index`                    | `public/cart_items`    |
+| カート追加  | `POST /cart_items`               | `create`                   | `public/cart_items`    |
+| カート更新  | `PATCH /cart_items/:id`          | `update`                   | `public/cart_items`    |
+| カート削除  | `DELETE /cart_items/:id`         | `destroy`                  | `public/cart_items`    |
+| カート全削除 | `DELETE /cart_items/destroy_all` | `destroy_all`              | `public/cart_items`    |
+| 注文フォーム | `/orders/new`                    | `new`                      | `public/orders`        |
+| 注文作成   | `POST /orders`                   | `create`                   | `public/orders`        |
+| 注文履歴一覧 | `/orders`                        | `index`                    | `public/orders`        |
+| 注文詳細   | `/orders/:id`                    | `show`                     | `public/orders`        |
+| 注文確認   | `POST /orders/confirm`           | `confirm`                  | `public/orders`        |
+| 注文完了   | `/orders/complete`               | `complete`                 | `public/orders`        |
+| 配送先一覧  | `/addresses`                     | `index`                    | `public/addresses`     |
+| 配送先作成  | `POST /addresses`                | `create`                   | `public/addresses`     |
+| 配送先編集  | `/addresses/:id/edit`            | `edit`                     | `public/addresses`     |
+| 配送先更新  | `PATCH /addresses/:id`           | `update`                   | `public/addresses`     |
+| 配送先削除  | `DELETE /addresses/:id`          | `destroy`                  | `public/addresses`     |
+
+管理者側
+| 機能カテゴリ  | URLパス例                           | アクション名                     | コントローラ                |
+| ------- | -------------------------------- | -------------------------- | --------------------- |
+| 認証      | `/admin/sign_in`                 | `new`, `create`, `destroy` | `admin/sessions`      |
+| ダッシュボード | `/admin`                         | `top`                      | `admin/homes`         |
+| 顧客一覧    | `/admin/customers`               | `index`                    | `admin/customers`     |
+| 顧客詳細    | `/admin/customers/:id`           | `show`                     | `admin/customers`     |
+| 顧客編集    | `/admin/customers/:id/edit`      | `edit`                     | `admin/customers`     |
+| 顧客更新    | `PATCH /admin/customers/:id`     | `update`                   | `admin/customers`     |
+| 商品一覧    | `/admin/items`                   | `index`                    | `admin/items`         |
+| 商品新規作成  | `POST /admin/items`              | `create`                   | `admin/items`         |
+| 商品登録    | `/admin/items/new`               | `new`                      | `admin/items`         |
+| 商品詳細    | `/admin/items/:id`               | `show`                     | `admin/items`         |
+| 商品編集    | `/admin/items/:id/edit`          | `edit`                     | `admin/items`         |
+| 商品更新    | `PATCH /admin/items/:id`         | `update`                   | `admin/items`         |
+| ジャンル一覧  | `/admin/genres`                  | `index`                    | `admin/genres`        |
+| ジャンル作成  | `POST /admin/genres`             | `create`                   | `admin/genres`        |
+| ジャンル編集  | `/admin/genres/:id/edit`         | `edit`                     | `admin/genres`        |
+| ジャンル更新  | `PATCH /admin/genres/:id`        | `update`                   | `admin/genres`        |
+| 注文一覧    | `/admin/orders`                  | `index`                    | `admin/orders`        |
+| 注文詳細    | `/admin/orders/:id`              | `show`                     | `admin/orders`        |
+| 注文更新    | `PATCH /admin/orders/:id`        | `update`                   | `admin/orders`        |
+| 注文明細更新  | `PATCH /admin/order_details/:id` | `update`                   | `admin/order_details` |

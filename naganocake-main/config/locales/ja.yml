@@ -1,0 +1,46 @@
+ja:
+  order:
+    method:
+      credit_card: "クレジットカード"
+      transfer: "銀行振込"
+    status:
+      waiting_for_payment: "入金待ち"
+      payment_confirmed: "入金確認"
+      in_production: "製作中"
+      preparing_to_ship: "発送準備中"
+      shipped: "発送済み"
+
+  order_detail:
+    status:
+      unable_to_start: "着手不可"
+      waiting_for_production: "製作待ち"
+      production_in_progress: "製作中"
+      production_completed: "製作完了"
+      
+  devise:
+    sessions:
+      admin:
+        signed_in: "管理者としてログインしました"
+      signed_in: "ログインしました"
+
+  activerecord:
+    models:
+      item: 商品
+      genre: ジャンル
+    attributes:
+      item:
+        genre_id: ジャンル
+        name: 商品名
+        introduction: 商品説明
+        price: 価格
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      not_a_number: "は0以上の数値でなければなりません"
+      greater_than_or_equal_to: "%{count}以上の数値を入力してください"
+      not_saved: "保存に失敗しました。入力内容に誤りがあります。"
+      genre_id: "ジャンルを入力してください"
+      taken: "はすでに使用されています"  

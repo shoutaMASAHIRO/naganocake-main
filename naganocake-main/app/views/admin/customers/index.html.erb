@@ -1,0 +1,49 @@
+<h1 class="my-4 text-center">会員一覧</h1>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>会員ID</th>
+      <th>氏名</th>
+      <th>Email</th>
+      <th>退会ステータス</th>
+      <th>アクション</th>
+    </tr>
+  <tbody>
+  <% @customers.each do |customer| %>
+    <tr>
+      <td><%= customer.id %></td>
+      <td><%= link_to "#{customer.last_name} #{customer.first_name}", admin_customer_path(customer) %></td>
+      <td><%= customer.email %></td>
+      <td>
+        <% if customer.is_deleted == false %>
+          <span class="badge bg-success">有効</span>
+        <% else %>
+          <span class="badge bg-danger">退会済</span>
+        <% end %>
+      </td>
+      <td>
+        <div class="d-flex gap-2">
+          <% if customer.is_deleted %>
+            <%= button_to "有効に戻す", toggle_status_admin_customer_path(customer),
+                          method: :patch,
+                          data: { confirm: "この会員を『有効』状態に戻しますか？" },
+                          class: "btn btn-sm btn-success" %>
+          <% else %>
+            <%= button_to "退会にする", toggle_status_admin_customer_path(customer),
+                          method: :patch,
+                          data: { confirm: "この会員を『退会』状態にしますか？" },
+                          class: "btn btn-sm btn-danger" %>
+          <% end %>
+          <%= link_to "会員の詳細", admin_customer_path(customer),
+                      class: "btn btn-outline-secondary btn-sm" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </thead>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center my-4">
+  <%= paginate @customers %>
+</div>

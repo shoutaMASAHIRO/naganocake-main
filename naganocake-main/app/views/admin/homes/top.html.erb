@@ -1,0 +1,9 @@
+<section class="inner py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-4">管理者トップ</h2>
+    <div class="admin-top-txt text-center bg-light p-4 rounded shadow">
+      <h1 class="mb-3">本日の注文件数</h1>
+      <%= link_to "#{@count} 件", admin_orders_path(created_at: 'today'), class: "btn btn-primary btn-lg fw-bold" %>
+    </div>
+  </div>
+</section>
